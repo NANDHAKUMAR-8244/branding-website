@@ -701,8 +701,8 @@ h3,
 
 h4,
 .h4 {
-  font-size: 36px;
-  line-height: 48px;
+  font-size: 23px;
+  line-height: px;
   letter-spacing: -0.01em;
 }
 @media (max-width: 767px) {
@@ -9413,8 +9413,8 @@ button.animate-btn::after,
 .accordion-faq_item .accordion-title {
   width: 100%;
   font-weight: 600;
-  font-size: 36px;
-  line-height: 48px;
+  font-size: 28px;
+  line-height: 38px;
   letter-spacing: -0.01em;
   color: var(--secondary);
   display: flex;
@@ -9461,7 +9461,7 @@ button.animate-btn::after,
   bottom: 110%;
 }
 .accordion-faq_item .accordion-action:not(.collapsed) .accordion-title {
-  font-size: 48px;
+  font-size: 44px;
   line-height: 56px;
   letter-spacing: -0.02em;
   color: var(--white);
@@ -9492,7 +9492,7 @@ button.animate-btn::after,
 }
 .accordion-faq_item .accordion-content .text {
   padding-top: 24px;
-  padding-bottom: 96px;
+  padding-bottom:46px;
 }
 .accordion-faq_item .accordion-text {
   width: 100%;
@@ -9796,5 +9796,144 @@ footer .footer-bottom::before {
     padding: 12px 7px;
   }
 }
-
 /*# sourceMappingURL=styles.css.map */
+/* object card in works*/
+ /* 1. Force images to a specific aspect ratio (e.g., 16:9 or 4:3) */
+    .featured-works-item .image {
+        position: relative;
+        width: 100%;
+        padding-top: 65%; /* This sets the height relative to width */
+        overflow: hidden;
+        border-radius: 8px; /* Optional: matches modern UI */
+    }
+
+    .featured-works-item .image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This prevents stretching by cropping the edges */
+    }
+
+    /* 2. Force the title to stay in one line and add "..." if too long */
+    .featured-works-item .content .heading {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        margin-top: 15px;
+        min-height: 1.2em; /* Keeps alignment even if text is missing */
+    }
+
+    /* 3. Reduce vertical spacing between cards */
+    .mb-30 {
+        margin-bottom: 20px !important;
+    }
+/* This forces the bullet to show even if lists are disabled in your CSS */
+    .bullet-heading::before {
+        content: "•";
+        color: #333; /* Change to your theme color */
+        font-weight: bold;
+        display: inline-block; 
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .sub-bullet-heading::before {
+        content: "○";
+        color: #666;
+        font-weight: bold;
+        display: inline-block; 
+        width: 1em;
+        margin-left: -1em;
+    }
+    .module-item {
+        padding-left: 1.5em;
+    }
+    /* Responsive Bullet Point Styling */
+.bullet-heading {
+    position: relative;
+    display: block;
+}
+
+.bullet-heading::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: inherit; /* Matches your text color */
+    font-weight: bold;
+}
+
+/* --- Base Fixes to prevent horizontal scroll --- */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.section-featured-works {
+    overflow-x: hidden;
+    width: 100%;
+    padding: 0; /* Ensures the section doesn't push itself out */
+}
+
+/* --- Responsive Logic for 623px and Below --- */
+@media (max-width: 623px) {
+    .container {
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .featured-works-list .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block !important; /* Stack elements vertically */
+    }
+
+    .featured-works-list .col-md-6 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-bottom: 30px; /* Keep your original spacing */
+    }
+
+    /* Force images to stay inside the screen */
+    .featured-works-item .image img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover;
+        display: block;
+        border-radius: 8px; /* Optional: adds a clean look on mobile */
+    }
+
+    /* Fix for the text seen in your screenshot */
+    .featured-works-item .content .heading {
+        font-size: 20px !important; /* Scale down so it doesn't overflow */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        margin-top: 15px;
+    }
+}
+
+/* --- Specific micro-fixes for devices under 347px --- */
+@media (max-width: 347px) {
+    .heading-title {
+        font-size: 1.5rem !important;
+        text-align: center;
+    }
+
+    /* Ensure buttons/links don't push the container width */
+    .tf-mouse.view-project {
+        position: relative !important;
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 14px;
+        transform: none !important; /* Stop absolute positioning from breaking layout */
+    }
+}
