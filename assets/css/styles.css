@@ -260,6 +260,13 @@ img {
   vertical-align: middle;
   -ms-interpolation-mode: bicubic;
 }
+.footer-logo img{
+   max-width: 100px;
+  height: auto;
+  transform: scale(1);
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
+}
 
 ul,
 li {
@@ -1769,7 +1776,7 @@ header.header-sticky {
   font-size: 20px;
 }
 .tf-header.header2 .header-inner {
-  max-width: 807px;
+  max-width: 900px;
 }
 @media (max-width: 991px) {
   .tf-header .box-navigation {
@@ -4719,18 +4726,53 @@ button.animate-btn::after,
 }
 .section-hero .content-wrap .title-icon .img-1 {
   position: absolute;
+  height: 60px;
+  width: 60px;
   left: 49px;
   top: 0;
+  border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
+  background: #fff;
+  padding: 5px;
+  transform: rotate(-12deg); 
+  animation-delay: 0s;
 }
 .section-hero .content-wrap .title-icon .img-2 {
   position: absolute;
+   height: 60px;
+  width: 60px;
   left: 136px;
   top: 28px;
+   border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
+  background: #fff;
+  padding: 5px;
+  transform: rotate(10deg); 
+  animation-delay: 0.5s;
 }
 .section-hero .content-wrap .title-icon .img-3 {
   position: absolute;
+   height: 60px;
+  width: 60px;
   left: 66px;
   top: 83px;
+   border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
+  background: #fff;
+  padding: 5px;
+  transform: rotate(-8deg);
+  animation-delay: 1s;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(var(--rotation, -10deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--rotation, -10deg));
+  }
+  100% {
+    transform: translateY(0px) rotate(var(--rotation, -10deg));
+  }
 }
 .section-hero .content-wrap .text {
   margin-bottom: 24px;
@@ -4987,42 +5029,75 @@ button.animate-btn::after,
     opacity: 0;
   }
 }
+
+/* Layout Styling */
 .partner-wrap {
   display: flex;
   align-items: center;
-  gap: 24px 98px;
+  gap: 40px;
   padding: 60px 0;
   position: relative;
+  background-color: #EDECEC; /* Match this to your actual section background */
 }
+
 .partner-wrap .text {
-  min-width: 114px;
+  min-width: 150px;
+  flex-shrink: 0;
+  z-index: 5; /* Keep text above the smoke */
 }
-.partner-wrap .infiniteslide_wrap {
+
+/* 1. THE SMOKE EFFECT (Fade edges) */
+.infiniteslide_wrap {
   position: relative;
+  overflow: hidden;
+  width: 100%;
 }
-.partner-wrap .infiniteslide_wrap::after {
-  position: absolute;
+
+.infiniteslide_wrap::after {
   content: "";
+  position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #EDECEC 0%, rgba(237, 236, 236, 0) 25%, rgba(237, 236, 236, 0) 75%, #EDECEC 100%);
+  z-index: 2; /* Sits on top of the moving logos */
+  pointer-events: none; /* Allows mouse to go through to logos */
+  /* Gradient matches background color to create the fade */
+  background: linear-gradient(90deg, 
+    #EDECEC 0%, 
+    rgba(237, 236, 236, 0) 20%, 
+    rgba(237, 236, 236, 0) 80%, 
+    #EDECEC 100%);
 }
-.partner-wrap .infiniteSlide_partner {
-  gap: 64px;
+
+/* 2. THE ANIMATION */
+.infiniteSlide_partner {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  width: max-content;
+  animation: slide-left 25s linear infinite;
 }
+
+.infiniteSlide_partner img {
+  height: 35px; /* Adjust size based on your images */
+  width: auto;
+  opacity: 0.6; /* Matches the subtle look in your image */
+}
+
+@keyframes slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Halfway point for seamless loop */
+}
+
+/* Top Decorative Line from your original code */
 .partner-wrap::before {
   position: absolute;
   content: "";
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, rgba(212, 212, 216, 0) 0%, #D4D4D8 50%, rgba(212, 212, 216, 0) 100%);
 }
+
 @media (max-width: 767px) {
-  .partner-wrap {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+  .partner-wrap { flex-direction: column; align-items: flex-start; }
 }
 
 .box-white {
@@ -5827,12 +5902,20 @@ button.animate-btn::after,
   justify-content: center;
   background: rgba(255, 255, 255, 0.0509803922);
   position: relative;
+  overflow: hidden;
 }
 .logo-custom .logo-site {
   display: flex;
   justify-content: center;
   flex-shrink: 0;
-  width: 34px;
+
+  width: 100%; 
+  height: 100%;
+}
+.logo-site img{
+ max-width: 250px;  /* Gives a tiny bit of breathing room */
+  max-height: 100px; /* Ensures it doesn't clip vertically */
+  object-fit: contain;
 }
 .logo-custom .logo-site-sv {
   display: flex;
@@ -6787,29 +6870,41 @@ button.animate-btn::after,
 }
 .tool-wrap .img-item-1 {
   top: 0;
+  height: 100px;
+  width: 100px;
   left: 32px;
 }
 .tool-wrap .img-item-2 {
   top: 50%;
   left: 0px;
+  height: 100px;
+  width: 100px;
   transform: translateY(-50%);
 }
 .tool-wrap .img-item-3 {
   bottom: 0;
   left: 40px;
+  height: 100px;
+  width: 100px;
 }
 .tool-wrap .img-item-4 {
   top: 6px;
   right: 38px;
+  height: 100px;
+  width: 100px;
 }
 .tool-wrap .img-item-5 {
   top: 50%;
   right: 0px;
+  height: 100px;
+  width: 100px;
   transform: translateY(-50%);
 }
 .tool-wrap .img-item-6 {
   bottom: -6px;
   right: 33px;
+  height: 100px;
+  width: 100px;
 }
 .tool-wrap .image-center {
   position: absolute;
@@ -6817,11 +6912,13 @@ button.animate-btn::after,
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 2.76726px 2.21381px rgba(0, 0, 0, 0.1197), 0px 3px 3px rgba(0, 0, 0, 0.14), 0px 100px 80px rgba(0, 0, 0, 0.15), 0px 41.7776px 33.4221px rgba(0, 0, 0, 0.1503), 0px 22.3363px 17.869px rgba(0, 0, 0, 0.1417), 0px 12.5216px 10.0172px rgba(0, 0, 0, 0.135), 0px 6.6501px 5.32008px rgba(0, 0, 0, 0.1283), 0px 2.76726px 2.21381px rgba(0, 0, 0, 0.1197);
-  border-radius: 8px;
+  border-radius: 20px;
   z-index: 2;
 }
 .tool-wrap .image-center img {
-  width: 100%;
+  width: 200px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
 }
 .tool-wrap .line-1 {
   position: absolute;
@@ -6909,14 +7006,18 @@ button.animate-btn::after,
   .tool-wrap .img-item-5,
   .tool-wrap .img-item-2 {
     width: 40px;
+    height: 50px;
+    
   }
   .tool-wrap .img-item-3,
   .tool-wrap .img-item-4 {
     width: 46px;
+    height: 50px;
   }
   .tool-wrap .img-item-1,
   .tool-wrap .img-item-6 {
     width: 52px;
+    height: 50px;
   }
 }
 
@@ -9796,8 +9897,55 @@ footer .footer-bottom::before {
     padding: 12px 7px;
   }
 }
-/*# sourceMappingURL=styles.css.map */
-/* object card in works*/
+/* Container & Frame */
+.team-pagination-slider {
+    position: relative;
+    padding: 0 60px;
+    width: 100%;
+}
+
+/* Orange Arrows */
+.team-pagination-slider .swiper-button-next,
+.team-pagination-slider .swiper-button-prev {
+    color: #FF4D00 !important;
+    background: #ffffff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.team-pagination-slider .swiper-button-next:after,
+.team-pagination-slider .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Orange Dots */
+.team-pagination-slider .swiper-pagination-bullet-active {
+    background-color: #FF4D00 !important;
+}
+
+/* MOBILE LOGIC: 1 per swipe */
+@media (max-width: 767px) {
+    .team-pagination-slider {
+        padding: 0 40px;
+    }
+
+    /* This makes the grid container ignore the 6-item layout and show 1 */
+    .team-pagination-slider .tf-grid-layout {
+        display: block !important;
+    }
+
+    /* Hide all items in the slide EXCEPT the first one on mobile 
+       to ensure it looks like 1 per swipe */
+    .team-pagination-slider .swiper-slide .team-item:not(:first-child) {
+        display: none;
+    }
+}/* object card in works*/
  /* 1. Force images to a specific aspect ratio (e.g., 16:9 or 4:3) */
     .featured-works-item .image {
         position: relative;

@@ -306,7 +306,33 @@
             mq.addEventListener("change", updateViewBox);
         });
     };
-
+$(document).ready(function () {
+    if ($(".team-pagination-slider").length > 0) {
+        var swiper = new Swiper(".team-pagination-slider", {
+            slidesPerView: 1, // Shows 1 "slide" (which contains 6 people on desktop)
+            spaceBetween: 30,
+            loop: true,
+            speed: 800,
+            grabCursor: true,
+            allowTouchMove: true,
+            
+            // NO AUTOPLAY - STRICTLY MANUAL
+            
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            observer: true,
+            observeParents: true
+        });
+    }
+});
+// Call the function
+teamSlider();
     // Dom Ready
     $(function () {
         infiniteSlide();
@@ -322,3 +348,4 @@
         viewbox();
     });
 })(jQuery);
+
