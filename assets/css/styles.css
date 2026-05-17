@@ -9821,7 +9821,7 @@ button.animate-btn::after,
 /*--------- Abstracts variable ---------- */
 footer {
   position: relative;
-  padding: 43px 0 0;
+  padding: 0;
 }
 footer .footer-image {
   position: absolute;
@@ -9838,7 +9838,7 @@ footer .footer-image img {
 }
 footer .footer-content {
   text-align: center;
-  padding-bottom: 125px;
+  padding-bottom: 80px;
 }
 footer .footer-content .footer-logo {
   display: inline-flex;
@@ -9850,7 +9850,7 @@ footer .footer-content .title {
   margin-bottom: 10px;
 }
 footer .footer-content .text {
-  margin-bottom: 48px;
+  margin-bottom: 0;
 }
 footer .footer-bottom {
   position: relative;
@@ -10084,4 +10084,63 @@ html, body {
         font-size: 14px;
         transform: none !important; /* Stop absolute positioning from breaking layout */
     }
+}
+/* Project info strip */
+.project-info-strip {
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+}
+.project-info-item {
+    flex: 1;
+    padding: 36px 32px;
+}
+.project-info-divider {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+.project-info-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: #71717a;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.project-info-value {
+    color: #e4e4e7;
+    font-size: 15px;
+    line-height: 1.7;
+}
+@media (max-width: 768px) {
+    .project-info-strip {
+        flex-direction: column;
+    }
+    .project-info-divider {
+        width: auto;
+        height: 1px;
+    }
+    .project-info-item {
+        padding: 24px 20px;
+    }
+}
+
+/* Hide testimonials section across all pages */
+.section-testimonials { display: none !important; }
+
+/* Page transition */
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+body {
+    animation: pageFadeIn 0.3s ease forwards;
+}
+body.page-leaving {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    animation: none;
 }

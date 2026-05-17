@@ -349,3 +349,92 @@ teamSlider();
     });
 })(jQuery);
 
+// Contact form — AJAX submit to mailer.php
+(function () {
+    function setupContactForm(formId, msgId) {
+        var form = document.getElementById(formId);
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var btn = form.querySelector('button[type="submit"]');
+            var msg = document.getElementById(msgId);
+            var originalText = btn.textContent;
+
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            msg.style.display = 'none';
+
+            fetch('mailer.php', { method: 'POST', body: new FormData(form) })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    msg.style.display = 'block';
+                    if (data.success) {
+                        msg.style.background = 'rgba(76,175,80,0.12)';
+                        msg.style.color = '#4CAF50';
+                        msg.style.border = '1px solid #4CAF50';
+                        form.reset();
+                    } else {
+                        msg.style.background = 'rgba(255,68,68,0.1)';
+                        msg.style.color = '#ff4444';
+                        msg.style.border = '1px solid #ff4444';
+                    }
+                    msg.textContent = data.message;
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                })
+                .catch(function () {
+                    msg.style.display = 'block';
+                    msg.style.background = 'rgba(255,68,68,0.1)';
+                    msg.style.color = '#ff4444';
+                    msg.style.border = '1px solid #ff4444';
+                    msg.textContent = 'Something went wrong. Please try again.';
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                });
+        });
+    }
+
+    setupContactForm('homeContactForm', 'homeFormMsg');
+    setupContactForm('contactPageForm', 'contactPageMsg');
+})();
+
+// Page transitions — CSS animation handles fade-in, JS handles fade-out on leave
+(function () {
+    // Re-play fade-in on back/forward (bfcache restore)
+    window.addEventListener('pageshow', function (e) {
+        if (e.persisted) document.body.classList.remove('page-leaving');
+    });
+
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest('a');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (
+            !href || href === '#' ||
+            href.startsWith('#') ||
+            href.startsWith('mailto:') ||
+            href.startsWith('tel:') ||
+            href.startsWith('javascript') ||
+            link.getAttribute('target') === '_blank' ||
+            e.ctrlKey || e.metaKey || e.shiftKey
+        ) return;
+        e.preventDefault();
+        document.body.classList.add('page-leaving');
+        setTimeout(function () { window.location.href = href; }, 250);
+    });
+})();
+
+// Ensure only one accordion panel opens at a time in #accordion-services
+(function () {
+    var acc = document.getElementById('accordion-services');
+    if (!acc) return;
+    acc.addEventListener('show.bs.collapse', function (e) {
+        acc.querySelectorAll('.collapse.show').forEach(function (openEl) {
+            if (openEl !== e.target) {
+                var instance = bootstrap.Collapse.getInstance(openEl);
+                if (instance) instance.hide();
+            }
+        });
+    });
+})();
+
