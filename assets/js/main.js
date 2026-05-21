@@ -356,72 +356,58 @@ teamSlider();
     });
 })(jQuery);
 
-// Contact form — AJAX submit to mailer.php
-(function () {
-    function setupContactForm(formId, msgId, pageName) {
-        var form = document.getElementById(formId);
-        if (!form) return;
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var btn = form.querySelector('button[type="submit"]');
-            var msg = document.getElementById(msgId);
-            var originalText = btn.textContent;
+// Contact form — global handler called via onsubmit on each form
+window.nexFormSubmit = function (form, msgId, pageName) {
+    var btn = form.querySelector('button[type="submit"]');
+    var msg = document.getElementById(msgId);
+    var originalText = btn.textContent;
 
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-            msg.style.display = 'none';
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    msg.style.display = 'none';
 
-            // Running locally — can't call PHP
-            if (window.location.protocol === 'file:') {
-                msg.style.display = 'block';
-                msg.style.background = 'rgba(255,165,0,0.12)';
-                msg.style.color = '#FFA500';
-                msg.style.border = '1px solid #FFA500';
-                msg.textContent = 'Form works on a live server. Upload to hosting to send emails.';
-                btn.textContent = originalText;
-                btn.disabled = false;
-                return;
-            }
-
-            var formData = new FormData(form);
-            formData.append('page', pageName || document.title);
-
-            fetch('mailer.php', { method: 'POST', body: formData })
-                .then(function (r) { return r.json(); })
-                .then(function (data) {
-                    msg.style.display = 'block';
-                    if (data.success) {
-                        msg.style.background = 'rgba(76,175,80,0.12)';
-                        msg.style.color = '#4CAF50';
-                        msg.style.border = '1px solid #4CAF50';
-                        form.reset();
-                    } else {
-                        msg.style.background = 'rgba(255,68,68,0.1)';
-                        msg.style.color = '#ff4444';
-                        msg.style.border = '1px solid #ff4444';
-                    }
-                    msg.textContent = data.message;
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                })
-                .catch(function () {
-                    msg.style.display = 'block';
-                    msg.style.background = 'rgba(255,68,68,0.1)';
-                    msg.style.color = '#ff4444';
-                    msg.style.border = '1px solid #ff4444';
-                    msg.textContent = 'Something went wrong. Please try again.';
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                });
-        });
+    if (window.location.protocol === 'file:') {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(255,165,0,0.12)';
+        msg.style.color = '#FFA500';
+        msg.style.border = '1px solid #FFA500';
+        msg.textContent = 'Form works on a live server. Upload to hosting to send emails.';
+        btn.textContent = originalText;
+        btn.disabled = false;
+        return;
     }
 
-    setupContactForm('homeContactForm',    'homeFormMsg',    'Home Page');
-    setupContactForm('contactPageForm',    'contactPageMsg', 'Contact Page');
-    setupContactForm('aboutContactForm',   'aboutFormMsg',   'About Page');
-    setupContactForm('serviceContactForm', 'serviceFormMsg', 'Services Page');
-    setupContactForm('indexV2ContactForm', 'indexV2FormMsg', 'Home V2 Page');
-})();
+    var formData = new FormData(form);
+    formData.append('page', pageName || document.title);
+
+    fetch('mailer.php', { method: 'POST', body: formData })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            msg.style.display = 'block';
+            if (data.success) {
+                msg.style.background = 'rgba(76,175,80,0.12)';
+                msg.style.color = '#4CAF50';
+                msg.style.border = '1px solid #4CAF50';
+                form.reset();
+            } else {
+                msg.style.background = 'rgba(255,68,68,0.1)';
+                msg.style.color = '#ff4444';
+                msg.style.border = '1px solid #ff4444';
+            }
+            msg.textContent = data.message;
+            btn.textContent = originalText;
+            btn.disabled = false;
+        })
+        .catch(function () {
+            msg.style.display = 'block';
+            msg.style.background = 'rgba(255,68,68,0.1)';
+            msg.style.color = '#ff4444';
+            msg.style.border = '1px solid #ff4444';
+            msg.textContent = 'Something went wrong. Please try again.';
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
+};
 
 // Always start at top of page on navigation
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
