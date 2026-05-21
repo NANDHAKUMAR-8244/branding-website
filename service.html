@@ -37,27 +37,24 @@ function nexFormSubmit(form, msgId, pageName) {
     var originalText = btn ? btn.textContent : '';
     if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
     if (msg) msg.style.display = 'none';
-    if (window.location.protocol === 'file:') {
-        if (msg) { msg.style.cssText += 'display:block;background:rgba(255,165,0,0.12);color:#FFA500;border:1px solid #FFA500;'; msg.textContent = 'Form works on a live server only.'; }
-        if (btn) { btn.textContent = originalText; btn.disabled = false; }
-        return;
-    }
+
     var fd = new FormData(form);
-    fd.append('page', pageName || document.title);
-    fetch('mailer.php', {method:'POST', body:fd})
-        .then(function(r){return r.json();})
-        .then(function(d){
+    fd.set('page', pageName || document.title);
+
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
             if (msg) {
                 msg.style.display = 'block';
                 msg.style.background = d.success ? 'rgba(76,175,80,0.12)' : 'rgba(255,68,68,0.1)';
                 msg.style.color = d.success ? '#4CAF50' : '#ff4444';
                 msg.style.border = '1px solid ' + (d.success ? '#4CAF50' : '#ff4444');
-                msg.textContent = d.message;
+                msg.textContent = d.success ? 'Successfully submitted! We will contact you soon.' : (d.message || 'Something went wrong.');
             }
             if (d.success && form.reset) form.reset();
             if (btn) { btn.textContent = originalText; btn.disabled = false; }
         })
-        .catch(function(){
+        .catch(function() {
             if (msg) { msg.style.display = 'block'; msg.style.background = 'rgba(255,68,68,0.1)'; msg.style.color = '#ff4444'; msg.style.border = '1px solid #ff4444'; msg.textContent = 'Something went wrong. Please try again.'; }
             if (btn) { btn.textContent = originalText; btn.disabled = false; }
         });
@@ -736,6 +733,9 @@ function nexFormSubmit(form, msgId, pageName) {
                         <div class="col-lg-6">
                             <form class="form-contact effectFade fadeUp" id="serviceContactForm" onsubmit="try{nexFormSubmit(this,'serviceFormMsg','Services Page');}catch(e){}return false;">
                                 <div id="serviceFormMsg" style="display:none;padding:12px 16px;border-radius:8px;margin-bottom:18px;font-weight:600;font-size:15px;"></div>
+                                    <input type="hidden" name="access_key" value="75f37ef7-5ea9-46eb-8572-32226ebb65c0">
+                                    <input type="hidden" name="subject" value="New Enquiry - NexInnovators">
+                                    <input type="hidden" name="from_name" value="NexInnovators Website">
                                 <h4 class="heading fw-semibold">Fill this form below</h4>
                                 <fieldset class="mb-21">
                                     <label class="fw-semibold text-body-3 mb-20">Your Name</label>
