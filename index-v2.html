@@ -92,8 +92,8 @@
                             </ul>
                         </li>
                         <li class="menu-item has-child">
-                            <a href="#" class="item-link link1">Blog</a>
-                            <ul class="sub-menu">
+                            <a href="blog-two-columns.html" class="item-link link1">Blog</a>
+                            <!-- <ul class="sub-menu">
                                 <li class="sub-menu-item">
                                     <a href="blog-standard.html" class="item-link link1">Blog standard</a>
                                 </li>
@@ -106,7 +106,7 @@
                                 <li class="sub-menu-item">
                                     <a href="blog-single.html" class="item-link link1">Blog single</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <li class="menu-item">
                             <a href="contact.html" class="item-link link1">Contact</a>
@@ -116,7 +116,7 @@
                 <a href="contact.html" class="tf-btn d-lg-flex d-none">
                     Start a Project
                 </a>
-                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
+                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex" onclick="document.querySelector('.offcanvas-menu').classList.add('show');document.body.classList.add('overflow-hidden');return false;">
                     <i class="icon icon-grip-lines-solid"></i>
                 </a>
             </div>
@@ -1386,7 +1386,7 @@
                                         <i class="icon icon-envelope-solid"></i>
                                         <div class="content">
                                             <div class="title fw-semibold mb-2">E-mail address</div>
-                                            <div class="text">contact@nexinnovators.com</div>
+                                            <div class="text">nandhudev804@gmail.com</div>
                                         </div>
                                     </div>
                                     <div class="contact-item effectFade fadeRotateX" data-delay="0.1">
@@ -1400,24 +1400,25 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <form class="form-contact effectFade fadeUp">
+                            <form class="form-contact effectFade fadeUp" id="indexV2ContactForm" action="javascript:void(0)">
+                                <div id="indexV2FormMsg" style="display:none;padding:12px 16px;border-radius:8px;margin-bottom:18px;font-weight:600;font-size:15px;"></div>
                                 <h4 class="heading fw-semibold">Fill this form below</h4>
                                 <fieldset class="mb-21">
                                     <label class="fw-semibold text-body-3 mb-20">Your Name</label>
-                                    <input class="" type="text" placeholder="Enter your full name" required>
+                                    <input name="name" type="text" placeholder="Enter your full name" required>
                                 </fieldset>
                                 <fieldset class="mb-21">
                                     <label class="fw-semibold text-body-3 mb-20">Your Phone</label>
-                                    <input class="" type="text" placeholder="Enter the e-mail" required>
+                                    <input name="phone" type="tel" placeholder="Enter your phone number" required>
+                                </fieldset>
+                                <fieldset class="mb-21">
+                                    <label class="fw-semibold text-body-3 mb-20">Your Email</label>
+                                    <input name="email" type="email" placeholder="Enter your email address" required>
                                 </fieldset>
                                 <fieldset class="mb-18">
                                     <label class="fw-semibold text-body-3 mb-0">More About The Project</label>
-                                    <textarea name="text" class=""></textarea>
+                                    <textarea name="message" class=""></textarea>
                                 </fieldset>
-                                <div class="attachment d-flex gap-8 align-items-center">
-                                    <i class="icon icon-paperclip-solid fs-24"></i>
-                                    <div class="fw-semibold text-body-3">Add an Attachment</div>
-                                </div>
                                 <button type="submit" class="tf-btn w-100">Submit Message</button>
                             </form>
                         </div>
@@ -1474,7 +1475,7 @@
                             <a href="service.html" class="fw-semibold link-underline link1">Services</a>
                         </li>
                         <li>
-                            <a href="work.html" class="fw-semibold link-underline link1">Works</a>
+                            <a href="work-single.html" class="fw-semibold link-underline link1">Works</a>
                         </li>
                         <li>
                             <a href="contact.html" class="fw-semibold link-underline link1">Contact</a>
@@ -1501,29 +1502,14 @@
                         <a href="index.html" class="logo-site">
                             <i class="icon icon-davies-logo"></i>
                         </a>
-                        <div class="btn-mobile-menu close-mb-menu text-caption link">
+                        <div class="btn-mobile-menu close-mb-menu text-caption link" onclick="document.querySelector('.offcanvas-menu').classList.remove('show');document.body.classList.remove('overflow-hidden');">
                             <i class="icon icon-close"></i>
                             CLOSE
                         </div>
                     </div>
                     <div class="canvas_center">
                         <ul class="nav-ul-mb" id="mobile-menu">
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-index" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-index">
-                                            <span class="text">Home</span>
-                                        </a>
-                                        <div id="dropdown-menu-index" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="index-2.html" class="sub-nav-link text-white">Home Gradient</a></li>
-                                                <li><a href="index-v2.html" class="sub-nav-link text-white">Home Animated</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li><div class="item"><a href="index.html" class="mb-menu-link text-display-1"><span class="text">Home</span></a></div></li>
                             <li>
                                 <div class="item">
                                     <a href="about.html" class="mb-menu-link text-display-1">
@@ -1531,56 +1517,9 @@
                                     </a>
                                 </div>
                             </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-1" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-1">
-                                            <span class="text">Works</span>
-                                        </a>
-                                        <div id="dropdown-menu-1" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="work.html" class="sub-nav-link text-white">Works</a></li>
-                                                <li><a href="work-single.html" class="sub-nav-link text-white">Works Single</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-2" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-2">
-                                            <span class="text">Services</span>
-                                        </a>
-                                        <div id="dropdown-menu-2" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="service.html" class="sub-nav-link text-white">Services</a></li>
-                                                <li><a href="service-single.html" class="sub-nav-link text-white">Services Single</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-3" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-3">
-                                            <span class="text">Blog</span>
-                                        </a>
-                                        <div id="dropdown-menu-3" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="blog-standard.html" class="sub-nav-link text-white">Blog Standard</a></li>
-                                                <li><a href="blog-two-columns.html" class="sub-nav-link text-white">Blog Grid 2</a></li>
-                                                <li><a href="blog-three-columns.html" class="sub-nav-link text-white">Blog Grid 3</a></li>
-                                                <li><a href="blog-single.html" class="sub-nav-link text-white">Blog Single</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li><div class="item"><a href="work-single.html" class="mb-menu-link text-display-1"><span class="text">Works</span></a></div></li>
+                            <li><div class="item"><a href="service.html" class="mb-menu-link text-display-1"><span class="text">Services</span></a></div></li>
+                            <li><div class="item"><a href="blog-two-columns.html" class="mb-menu-link text-display-1"><span class="text">Blog</span></a></div></li>
                             <li>
                                 <div class="item">
                                     <a href="contact.html" class="mb-menu-link text-display-1">
@@ -1592,7 +1531,7 @@
                     </div>
                     <div class="canvas_foot">
                         <div class="left">
-                            <a href="mailto:contact@nexinnovators.com" class="text-caption text-neutral-200">contact@nexinnovators.com</a>
+                            <a href="mailto:nandhudev804@gmail.com" class="text-caption text-neutral-200">nandhudev804@gmail.com</a>
                             <p class="text-caption text-neutral-200">
                                 CUP <span class="clock"></span>
                             </p>

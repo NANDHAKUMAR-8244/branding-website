@@ -189,14 +189,21 @@
     /* Open Menu
     -------------------------------------------------------------------------*/
     var openMbMenu = () => {
-        $(".open-mb-menu").on("click", function () {
-            $(".offcanvas-menu").addClass("show");
-            $("body").toggleClass("overflow-hidden");
+        var menu = document.querySelector(".offcanvas-menu");
+
+        document.querySelectorAll(".open-mb-menu").forEach(function(btn) {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                menu.classList.add("show");
+                document.body.classList.add("overflow-hidden");
+            });
         });
 
-        $(".close-mb-menu").on("click", function () {
-            $(".offcanvas-menu").removeClass("show");
-            $("body").toggleClass("overflow-hidden");
+        document.querySelectorAll(".close-mb-menu").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                menu.classList.remove("show");
+                document.body.classList.remove("overflow-hidden");
+            });
         });
     };
     /* switchprice
@@ -351,7 +358,7 @@ teamSlider();
 
 // Contact form — AJAX submit to mailer.php
 (function () {
-    function setupContactForm(formId, msgId) {
+    function setupContactForm(formId, msgId, pageName) {
         var form = document.getElementById(formId);
         if (!form) return;
         form.addEventListener('submit', function (e) {
@@ -364,7 +371,22 @@ teamSlider();
             btn.disabled = true;
             msg.style.display = 'none';
 
-            fetch('mailer.php', { method: 'POST', body: new FormData(form) })
+            // Running locally — can't call PHP
+            if (window.location.protocol === 'file:') {
+                msg.style.display = 'block';
+                msg.style.background = 'rgba(255,165,0,0.12)';
+                msg.style.color = '#FFA500';
+                msg.style.border = '1px solid #FFA500';
+                msg.textContent = 'Form works on a live server. Upload to hosting to send emails.';
+                btn.textContent = originalText;
+                btn.disabled = false;
+                return;
+            }
+
+            var formData = new FormData(form);
+            formData.append('page', pageName || document.title);
+
+            fetch('mailer.php', { method: 'POST', body: formData })
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
                     msg.style.display = 'block';
@@ -394,9 +416,21 @@ teamSlider();
         });
     }
 
-    setupContactForm('homeContactForm', 'homeFormMsg');
-    setupContactForm('contactPageForm', 'contactPageMsg');
+    setupContactForm('homeContactForm',    'homeFormMsg',    'Home Page');
+    setupContactForm('contactPageForm',    'contactPageMsg', 'Contact Page');
+    setupContactForm('aboutContactForm',   'aboutFormMsg',   'About Page');
+    setupContactForm('serviceContactForm', 'serviceFormMsg', 'Services Page');
+    setupContactForm('indexV2ContactForm', 'indexV2FormMsg', 'Home V2 Page');
 })();
+
+// Always start at top of page on navigation
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+// Clear body animation after fade-in so position:fixed (mobile menu) works correctly
+document.body.addEventListener('animationend', function (e) {
+    if (e.animationName === 'pageFadeIn') document.body.style.animation = 'none';
+}, { once: true });
 
 // Page transitions — CSS animation handles fade-in, JS handles fade-out on leave
 (function () {

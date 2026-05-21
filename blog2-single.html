@@ -57,15 +57,15 @@
                 <div class="box-navigation">
                     <ul class="nav-menu-main">
                         <li class="menu-item has-child">
-                            <a href="#" class="item-link link1">Home</a>
-                            <ul class="sub-menu">
+                            <a href="index.html" class="item-link link1">Home</a>
+                            <!-- <ul class="sub-menu">
                                 <li class="sub-menu-item">
                                     <a href="index-2.html" class="item-link link1">Home Gradient</a>
                                 </li>
                                 <li class="sub-menu-item">
                                     <a href="index-v2.html" class="item-link link1">Home Animated</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <li class="menu-item">
                             <a href="about.html" class="item-link link1">About</a>
@@ -82,15 +82,15 @@
                             </ul> -->
                         </li>
                         <li class="menu-item has-child">
-                            <a href="#" class="item-link link1">Works</a>
-                            <ul class="sub-menu">
+                            <a href="work-single.html" class="item-link link1">Works</a>
+                            <!-- <ul class="sub-menu">
                                 <li class="sub-menu-item">
                                     <a href="work.html" class="item-link link1">Works</a>
                                 </li>
                                 <li class="sub-menu-item">
                                     <a href="work-single.html" class="item-link link1">Works single</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <li class="menu-item has-child">
                             <a href="blog-two-columns.html" class="item-link link1 active">Blog</a>
@@ -117,7 +117,7 @@
                 <a href="contact.html" class="tf-btn d-lg-flex d-none">
                     Start a Project
                 </a>
-                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
+                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex" onclick="document.querySelector('.offcanvas-menu').classList.add('show');document.body.classList.add('overflow-hidden');return false;">
                     <i class="icon icon-grip-lines-solid"></i>
                 </a>
             </div>
@@ -422,7 +422,7 @@ Where the code is invisible, but the impact is absolute. ”
                             <a href="service.html" class="fw-semibold link-underline link1">Services</a>
                         </li>
                         <li>
-                            <a href="work.html" class="fw-semibold link-underline link1">Works</a>
+                            <a href="work-single.html" class="fw-semibold link-underline link1">Works</a>
                         </li>
                         <li>
                             <a href="contact.html" class="fw-semibold link-underline link1">Contact</a>
@@ -447,29 +447,14 @@ Where the code is invisible, but the impact is absolute. ”
                         <a href="index.html" class="logo-site">
                             <i class="icon icon-davies-logo"></i>
                         </a>
-                        <div class="btn-mobile-menu close-mb-menu text-caption link">
+                        <div class="btn-mobile-menu close-mb-menu text-caption link" onclick="document.querySelector('.offcanvas-menu').classList.remove('show');document.body.classList.remove('overflow-hidden');">
                             <i class="icon icon-close"></i>
                             CLOSE
                         </div>
                     </div>
                     <div class="canvas_center">
                         <ul class="nav-ul-mb" id="mobile-menu">
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-index" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-index">
-                                            <span class="text">Home</span>
-                                        </a>
-                                        <div id="dropdown-menu-index" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="index-2.html" class="sub-nav-link text-white">Home Gradient</a></li>
-                                                <li><a href="index-v2.html" class="sub-nav-link text-white">Home Animated</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li><div class="item"><a href="index.html" class="mb-menu-link text-display-1"><span class="text">Home</span></a></div></li>
                             <li>
                                 <div class="item">
                                     <a href="about.html" class="mb-menu-link text-display-1">
@@ -477,56 +462,9 @@ Where the code is invisible, but the impact is absolute. ”
                                     </a>
                                 </div>
                             </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-1" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-1">
-                                            <span class="text">Works</span>
-                                        </a>
-                                        <div id="dropdown-menu-1" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="work.html" class="sub-nav-link text-white">Works</a></li>
-                                                <li><a href="work-single.html" class="sub-nav-link text-white">Works Single</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-2" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-2">
-                                            <span class="text">Services</span>
-                                        </a>
-                                        <div id="dropdown-menu-2" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <li><a href="service.html" class="sub-nav-link text-white">Services</a></li>
-                                                <!-- <li><a href="service-single.html" class="sub-nav-link text-white">Services Single</a></li> -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="has-sub-menu">
-                                        <a href="#dropdown-menu-3" class="mb-menu-link text-display-1 collapsed" data-bs-toggle="collapse"
-                                            aria-expanded="false" aria-controls="dropdown-menu-3">
-                                            <span class="text">Blog</span>
-                                        </a>
-                                        <div id="dropdown-menu-3" class="collapse" data-bs-parent="#mobile-menu">
-                                            <ul class="sub-nav-menu">
-                                                <!-- <li><a href="blog-standard.html" class="sub-nav-link text-white">Blog Standard</a></li> -->
-                                                <li><a href="blog-two-columns.html" class="sub-nav-link text-white">Blog Grid 2</a></li>
-                                                <!-- <li><a href="blog-three-columns.html" class="sub-nav-link text-white">Blog Grid 3</a></li>
-                                                <li><a href="blog-single.html" class="sub-nav-link text-white">Blog Single</a></li> -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li><div class="item"><a href="work-single.html" class="mb-menu-link text-display-1"><span class="text">Works</span></a></div></li>
+                            <li><div class="item"><a href="service.html" class="mb-menu-link text-display-1"><span class="text">Services</span></a></div></li>
+                            <li><div class="item"><a href="blog-two-columns.html" class="mb-menu-link text-display-1"><span class="text">Blog</span></a></div></li>
                             <li>
                                 <div class="item">
                                     <a href="contact.html" class="mb-menu-link text-display-1">
@@ -538,7 +476,7 @@ Where the code is invisible, but the impact is absolute. ”
                     </div>
                     <div class="canvas_foot">
                         <div class="left">
-                            <a href="mailto:contact@nexinnovators.com" class="text-caption text-neutral-200">contact@nexinnovators.com</a>
+                            <a href="mailto:nandhudev804@gmail.com" class="text-caption text-neutral-200">nandhudev804@gmail.com</a>
                             <p class="text-caption text-neutral-200">
                                 CUP <span class="clock"></span>
                             </p>
