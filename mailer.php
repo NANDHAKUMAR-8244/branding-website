@@ -11,8 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── Config ────────────────────────────────────────────────────────────────────
-$SMTP_HOST = 'smtp.gmail.com';
-$SMTP_PORT = 587;
 $SMTP_USER = 'nandhudev804@gmail.com';
 $SMTP_PASS = 'mpbxzlqahzjhzxfu';
 $OWNER     = 'nandhudev804@gmail.com';
@@ -20,7 +18,7 @@ $OWNER     = 'nandhudev804@gmail.com';
 // ── Input ─────────────────────────────────────────────────────────────────────
 $name    = htmlspecialchars(strip_tags(trim(isset($_POST['name'])    ? $_POST['name']    : '')));
 $phone   = htmlspecialchars(strip_tags(trim(isset($_POST['phone'])   ? $_POST['phone']   : '')));
-$email   = filter_var(trim(isset($_POST['email'])   ? $_POST['email']   : ''), FILTER_SANITIZE_EMAIL);
+$email   = filter_var(trim(isset($_POST['email']) ? $_POST['email'] : ''), FILTER_SANITIZE_EMAIL);
 $message = htmlspecialchars(strip_tags(trim(isset($_POST['message']) ? $_POST['message'] : '')));
 $page    = htmlspecialchars(strip_tags(trim(isset($_POST['page'])    ? $_POST['page']    : 'Website')));
 
@@ -30,77 +28,90 @@ if (empty($name) || empty($phone) || empty($email) || !filter_var($email, FILTER
     exit;
 }
 
-// ── Minimal SMTP sender ───────────────────────────────────────────────────────
-function smtp_send($host, $port, $user, $pass, $from, $fromName, $to, $toName, $subject, $body) {
-    $sock = fsockopen($host, $port, $errno, $errstr, 10);
-    if (!$sock) return false;
+// ── SMTP via SSL port 465 (more compatible than STARTTLS 587) ─────────────────
+function smtp_send($user, $pass, $to, $toName, $subject, $body) {
+    $ctx = stream_context_create([
+        'ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ]
+    ]);
 
-    function smtp_cmd($sock, $cmd, $expect) {
-        if ($cmd) fwrite($sock, $cmd . "\r\n");
-        $resp = '';
-        while (($line = fgets($sock, 512)) !== false) {
-            $resp .= $line;
+    $sock = stream_socket_client('ssl://smtp.gmail.com:465', $errno, $errstr, 15, STREAM_CLIENT_CONNECT, $ctx);
+    if (!$sock) return "Connection failed: $errstr ($errno)";
+
+    function smtp_get($sock) {
+        $r = '';
+        while ($line = fgets($sock, 512)) {
+            $r .= $line;
             if (substr($line, 3, 1) === ' ') break;
         }
-        return (int)substr($resp, 0, 3) === (int)$expect ? $resp : false;
+        return $r;
+    }
+    function smtp_put($sock, $cmd) {
+        fwrite($sock, $cmd . "\r\n");
+        return smtp_get($sock);
     }
 
-    if (!smtp_cmd($sock, null, 220))         { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "EHLO localhost", 250)) { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "STARTTLS", 220))   { fclose($sock); return false; }
+    $r = smtp_get($sock);
+    if ((int)$r !== 220 && strpos($r, '220') === false) { fclose($sock); return "No greeting: $r"; }
 
-    stream_socket_enable_crypto($sock, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+    $r = smtp_put($sock, "EHLO localhost");
+    if (strpos($r, '250') === false) { fclose($sock); return "EHLO failed: $r"; }
 
-    if (!smtp_cmd($sock, "EHLO localhost", 250))                         { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "AUTH LOGIN", 334))                              { fclose($sock); return false; }
-    if (!smtp_cmd($sock, base64_encode($user), 334))                      { fclose($sock); return false; }
-    if (!smtp_cmd($sock, base64_encode($pass), 235))                      { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "MAIL FROM:<$from>", 250))                       { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "RCPT TO:<$to>", 250))                           { fclose($sock); return false; }
-    if (!smtp_cmd($sock, "DATA", 354))                                    { fclose($sock); return false; }
+    $r = smtp_put($sock, "AUTH LOGIN");
+    if (strpos($r, '334') === false) { fclose($sock); return "AUTH failed: $r"; }
 
-    $date    = date('r');
-    $msgBody = "Date: $date\r\n"
-             . "From: =?UTF-8?B?" . base64_encode($fromName) . "?= <$from>\r\n"
-             . "To: =?UTF-8?B?" . base64_encode($toName) . "?= <$to>\r\n"
-             . "Subject: =?UTF-8?B?" . base64_encode($subject) . "?=\r\n"
-             . "MIME-Version: 1.0\r\n"
-             . "Content-Type: text/plain; charset=UTF-8\r\n"
-             . "\r\n"
-             . $body . "\r\n.\r\n";
+    $r = smtp_put($sock, base64_encode($user));
+    if (strpos($r, '334') === false) { fclose($sock); return "User failed: $r"; }
 
-    if (!smtp_cmd($sock, $msgBody, 250)) { fclose($sock); return false; }
-    smtp_cmd($sock, "QUIT", 221);
+    $r = smtp_put($sock, base64_encode($pass));
+    if (strpos($r, '235') === false) { fclose($sock); return "Pass failed: $r"; }
+
+    $r = smtp_put($sock, "MAIL FROM:<$user>");
+    if (strpos($r, '250') === false) { fclose($sock); return "MAIL FROM failed: $r"; }
+
+    $r = smtp_put($sock, "RCPT TO:<$to>");
+    if (strpos($r, '250') === false) { fclose($sock); return "RCPT TO failed: $r"; }
+
+    $r = smtp_put($sock, "DATA");
+    if (strpos($r, '354') === false) { fclose($sock); return "DATA failed: $r"; }
+
+    $msg = "From: NexInnovators <$user>\r\n"
+         . "To: $toName <$to>\r\n"
+         . "Subject: $subject\r\n"
+         . "MIME-Version: 1.0\r\n"
+         . "Content-Type: text/plain; charset=UTF-8\r\n"
+         . "\r\n"
+         . $body . "\r\n.";
+
+    $r = smtp_put($sock, $msg);
+    if (strpos($r, '250') === false) { fclose($sock); return "MSG failed: $r"; }
+
+    smtp_put($sock, "QUIT");
     fclose($sock);
     return true;
 }
 
-// ── 1. Notify you ─────────────────────────────────────────────────────────────
-$sub1  = "New Enquiry from NexInnovators ($page)";
-$body1 = "New enquiry received from: $page\r\n\r\n"
-       . "Name    : $name\r\n"
-       . "Phone   : $phone\r\n"
-       . "Email   : $email\r\n\r\n"
-       . "Message :\r\n$message";
-
-smtp_send($SMTP_HOST, $SMTP_PORT, $SMTP_USER, $SMTP_PASS,
-    $SMTP_USER, 'NexInnovators Website',
+// ── Send notification to you ───────────────────────────────────────────────────
+$r1 = smtp_send($SMTP_USER, $SMTP_PASS,
     $OWNER, 'Nandha Kumar',
-    $sub1, $body1);
+    "New Enquiry from NexInnovators ($page)",
+    "Name: $name\r\nPhone: $phone\r\nEmail: $email\r\n\r\nMessage:\r\n$message"
+);
 
-// ── 2. Auto-reply to client ────────────────────────────────────────────────────
-$sub2  = "Thank you for contacting NexInnovators!";
-$body2 = "Hi $name,\r\n\r\n"
-       . "Thank you for reaching out to us!\r\n\r\n"
-       . "We have received your enquiry and our team will contact you soon.\r\n\r\n"
-       . "Best regards,\r\n"
-       . "NexInnovators Team\r\n"
-       . "nandhudev804@gmail.com | +91 95858 33569";
-
-smtp_send($SMTP_HOST, $SMTP_PORT, $SMTP_USER, $SMTP_PASS,
-    $SMTP_USER, 'NexInnovators',
+// ── Send auto-reply to client ─────────────────────────────────────────────────
+$r2 = smtp_send($SMTP_USER, $SMTP_PASS,
     $email, $name,
-    $sub2, $body2);
+    "Thank you for contacting NexInnovators!",
+    "Hi $name,\r\n\r\nThank you for reaching out!\r\n\r\nOur team will contact you soon.\r\n\r\nBest regards,\r\nNexInnovators Team\r\nnandhudev804@gmail.com | +91 95858 33569"
+);
 
 ob_end_clean();
-echo json_encode(['success' => true, 'message' => 'Successfully submitted! We will contact you soon.']);
+
+if ($r1 === true) {
+    echo json_encode(['success' => true, 'message' => 'Successfully submitted! We will contact you soon.']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Server error: ' . $r1]);
+}
