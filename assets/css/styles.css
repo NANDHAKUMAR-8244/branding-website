@@ -10256,6 +10256,7 @@ body.page-leaving {
 @media (max-width: 768px) {
     .nex-marquee-card { width: calc(80vw - 16px); }
     .nex-marquee-track { gap: 16px; }
+    .nex-marquee-info { display: none; }
 }
 @media (max-width: 480px) {
     .nex-marquee-card { width: calc(90vw - 16px); }
