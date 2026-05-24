@@ -10186,6 +10186,7 @@ body.page-leaving {
     transform: translateY(-6px);
 }
 .nex-marquee-img {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
@@ -10198,6 +10199,32 @@ body.page-leaving {
 }
 .nex-marquee-card:hover .nex-marquee-img img {
     transform: scale(1.06);
+}
+.nex-marquee-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.nex-marquee-card:hover .nex-marquee-overlay {
+    opacity: 1;
+}
+.nex-marquee-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 40px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 .nex-marquee-info {
     display: flex;
