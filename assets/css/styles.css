@@ -10265,7 +10265,9 @@ body.page-leaving {
     .nex-marquee-card { width: calc(80vw - 16px); }
     .nex-marquee-track { gap: 16px; }
     .nex-marquee-info { display: none; }
+    .nex-marquee-img { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 480px) {
-    .nex-marquee-card { width: calc(90vw - 16px); }
+    .nex-marquee-card { width: calc(88vw - 16px); }
+    .nex-marquee-img { aspect-ratio: 4 / 3; }
 }
