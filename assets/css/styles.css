@@ -10025,6 +10025,14 @@ html, body {
 .section-featured-works {
     overflow-x: hidden;
     width: 100%;
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+}
+@media (max-width: 991px) {
+    .section-featured-works {
+        padding-top: 52px !important;
+        padding-bottom: 52px !important;
+    }
 }
 
 /* --- Responsive Logic for 623px and Below --- */
