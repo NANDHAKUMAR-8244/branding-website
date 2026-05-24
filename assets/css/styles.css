@@ -10171,7 +10171,7 @@ body.page-leaving {
 .nex-marquee-card {
     display: flex;
     flex-direction: column;
-    width: 480px;
+    width: 580px;
     flex-shrink: 0;
     border-radius: 16px;
     overflow: hidden;
