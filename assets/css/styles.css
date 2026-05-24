@@ -10171,7 +10171,7 @@ body.page-leaving {
 .nex-marquee-card {
     display: flex;
     flex-direction: column;
-    width: 320px;
+    width: 480px;
     flex-shrink: 0;
     border-radius: 16px;
     overflow: hidden;
@@ -10218,7 +10218,10 @@ body.page-leaving {
     color: #fff;
     line-height: 1.4;
 }
-@media (max-width: 576px) {
-    .nex-marquee-card { width: 260px; }
+@media (max-width: 768px) {
+    .nex-marquee-card { width: 320px; }
     .nex-marquee-track { gap: 16px; }
+}
+@media (max-width: 480px) {
+    .nex-marquee-card { width: 280px; }
 }
