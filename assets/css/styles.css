@@ -10148,125 +10148,77 @@ body.page-leaving {
     animation: none;
 }
 
-/* ── Featured Works — Horizontal Swiper Cards ── */
-.nex-works-swiper {
-    overflow: visible;
-    padding-bottom: 8px;
+/* ── Featured Works — Auto-scroll Marquee Ticker ── */
+.nex-marquee-wrap {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
-.nex-works-swiper .swiper-wrapper {
-    align-items: stretch;
+.nex-marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: nexMarquee 30s linear infinite;
 }
-.nex-work-card {
+.nex-marquee-wrap:hover .nex-marquee-track {
+    animation-play-state: paused;
+}
+@keyframes nexMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.nex-marquee-card {
     display: flex;
     flex-direction: column;
-    text-decoration: none;
+    width: 320px;
+    flex-shrink: 0;
     border-radius: 16px;
     overflow: hidden;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
     transition: border-color 0.3s ease, transform 0.3s ease;
-    height: 100%;
+    cursor: pointer;
 }
-.nex-work-card:hover {
-    border-color: rgba(255,255,255,0.22);
-    transform: translateY(-4px);
+.nex-marquee-card:hover {
+    border-color: rgba(255,255,255,0.25);
+    transform: translateY(-6px);
 }
-.nex-work-card-img {
-    position: relative;
+.nex-marquee-img {
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
 }
-.nex-work-card-img img {
+.nex-marquee-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
 }
-.nex-work-card:hover .nex-work-card-img img {
+.nex-marquee-card:hover .nex-marquee-img img {
     transform: scale(1.06);
 }
-.nex-work-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.nex-work-card:hover .nex-work-card-overlay {
-    opacity: 1;
-}
-.nex-view-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    color: #000;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 10px 20px;
-    border-radius: 40px;
-    letter-spacing: 0.02em;
-}
-.nex-work-card-body {
-    padding: 20px 22px 22px;
+.nex-marquee-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    flex: 1;
+    gap: 6px;
+    padding: 16px 18px 18px;
 }
-.nex-work-card-num {
-    font-size: 0.78rem;
+.nex-marquee-tag {
+    font-size: 0.72rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.28);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
 }
-.nex-work-card-title {
-    font-size: 1.05rem;
+.nex-marquee-name {
+    font-size: 1rem;
     font-weight: 700;
     color: #fff;
-    line-height: 1.45;
+    line-height: 1.4;
 }
-.nex-work-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 2px;
-}
-.nex-work-card-tags span {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.45);
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 3px 10px;
-    white-space: nowrap;
-}
-/* Prev / Next nav buttons */
-.nex-works-nav {
-    display: flex;
-    gap: 10px;
-}
-.nex-nav-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    color: rgba(255,255,255,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.25s, color 0.25s, border-color 0.25s;
-    font-size: 1.1rem;
-}
-.nex-nav-btn:hover {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
+@media (max-width: 576px) {
+    .nex-marquee-card { width: 260px; }
+    .nex-marquee-track { gap: 16px; }
 }
