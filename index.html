@@ -800,116 +800,142 @@ function nexFormSubmit(form, msgId, pageName) {
         <!-- section-featured-works -->
         <div id="works" class="section-featured-works flat-spacing pt-0">
           <div class="container">
-            <div class="heading-section mb-48">
-              <div class="heading-sub fw-semibold mx-auto effectFade fadeUp">
-                Featured Works
+            <div class="d-flex align-items-center justify-content-between mb-48 flex-wrap gap-3">
+              <div class="heading-sub fw-semibold effectFade fadeUp">Featured Works</div>
+              <div class="nex-works-nav effectFade fadeUp">
+                <button class="nex-nav-btn" id="nexWorksPrev" aria-label="Previous project">
+                  <i class="icon icon-long-arrow-alt-left-solid"></i>
+                </button>
+                <button class="nex-nav-btn" id="nexWorksNext" aria-label="Next project">
+                  <i class="icon icon-long-arrow-alt-right-solid"></i>
+                </button>
               </div>
             </div>
 
-            <!-- Project Row List -->
-            <div class="nex-works-list">
+            <!-- Swiper carousel -->
+            <div class="swiper nex-works-swiper">
+              <div class="swiper-wrapper">
 
-              <!-- Item 1 -->
-              <a href="merinsystem.html" class="nex-work-row effectFade fadeUp">
-                <div class="nex-work-thumb">
-                  <img src="assets/images/section/merinsystem-cover.png" alt="Computing Solutions E-commerce Platform">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                  <a href="merinsystem.html" class="nex-work-card">
+                    <div class="nex-work-card-img">
+                      <img src="assets/images/section/merinsystem-cover.png" alt="Computing Solutions E-commerce Platform">
+                      <div class="nex-work-card-overlay">
+                        <span class="nex-view-btn">View Project <i class="icon icon-arrow-top-right"></i></span>
+                      </div>
+                    </div>
+                    <div class="nex-work-card-body">
+                      <div class="nex-work-card-num">01</div>
+                      <div class="nex-work-card-title">Computing Solutions E-commerce Platform</div>
+                      <div class="nex-work-card-tags">
+                        <span>E-commerce</span><span>Web Dev</span><span>Full Stack</span>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="nex-work-info">
-                  <div class="nex-work-num">01</div>
-                  <div class="nex-work-title">Computing Solutions<br>E-commerce Platform</div>
-                  <div class="nex-work-tags">
-                    <span>E-commerce</span>
-                    <span>Web Dev</span>
-                    <span>Full Stack</span>
-                  </div>
-                </div>
-                <div class="nex-work-arrow">
-                  <i class="icon icon-arrow-top-right"></i>
-                </div>
-              </a>
 
-              <!-- Item 2 -->
-              <a href="portfolio.html" class="nex-work-row effectFade fadeUp">
-                <div class="nex-work-thumb">
-                  <img src="assets/images/section/fathimaHakkim_cover.png" alt="Fathima Hakkim Illustrator Portfolio">
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                  <a href="portfolio.html" class="nex-work-card">
+                    <div class="nex-work-card-img">
+                      <img src="assets/images/section/fathimaHakkim_cover.png" alt="Fathima Hakkim Illustrator Portfolio">
+                      <div class="nex-work-card-overlay">
+                        <span class="nex-view-btn">View Project <i class="icon icon-arrow-top-right"></i></span>
+                      </div>
+                    </div>
+                    <div class="nex-work-card-body">
+                      <div class="nex-work-card-num">02</div>
+                      <div class="nex-work-card-title">Fathima Hakkim Illustrator Portfolio</div>
+                      <div class="nex-work-card-tags">
+                        <span>Art & Illustration</span><span>React</span><span>UI/UX</span>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="nex-work-info">
-                  <div class="nex-work-num">02</div>
-                  <div class="nex-work-title">Fathima Hakkim<br>Illustrator Portfolio</div>
-                  <div class="nex-work-tags">
-                    <span>Art & Illustration</span>
-                    <span>React</span>
-                    <span>UI/UX</span>
-                  </div>
-                </div>
-                <div class="nex-work-arrow">
-                  <i class="icon icon-arrow-top-right"></i>
-                </div>
-              </a>
 
-              <!-- Item 3 -->
-              <a href="photography.html" class="nex-work-row effectFade fadeUp">
-                <div class="nex-work-thumb">
-                  <img src="assets/images/section/photography-1.png" alt="Creative Photography Agency Platform">
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                  <a href="photography.html" class="nex-work-card">
+                    <div class="nex-work-card-img">
+                      <img src="assets/images/section/photography-1.png" alt="Creative Photography Agency Platform">
+                      <div class="nex-work-card-overlay">
+                        <span class="nex-view-btn">View Project <i class="icon icon-arrow-top-right"></i></span>
+                      </div>
+                    </div>
+                    <div class="nex-work-card-body">
+                      <div class="nex-work-card-num">03</div>
+                      <div class="nex-work-card-title">Creative Photography Agency Platform</div>
+                      <div class="nex-work-card-tags">
+                        <span>Creative Media</span><span>UI/UX</span><span>Responsive</span>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="nex-work-info">
-                  <div class="nex-work-num">03</div>
-                  <div class="nex-work-title">Creative Photography<br>Agency Platform</div>
-                  <div class="nex-work-tags">
-                    <span>Creative Media</span>
-                    <span>UI/UX</span>
-                    <span>Responsive</span>
-                  </div>
-                </div>
-                <div class="nex-work-arrow">
-                  <i class="icon icon-arrow-top-right"></i>
-                </div>
-              </a>
 
-              <!-- Item 4 -->
-              <a href="auction.html" class="nex-work-row effectFade fadeUp">
-                <div class="nex-work-thumb">
-                  <img src="assets/images/section/Auction Platform Frontend Design.png" alt="Auction Marketplace Platform">
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                  <a href="auction.html" class="nex-work-card">
+                    <div class="nex-work-card-img">
+                      <img src="assets/images/section/Auction Platform Frontend Design.png" alt="Auction Marketplace Platform">
+                      <div class="nex-work-card-overlay">
+                        <span class="nex-view-btn">View Project <i class="icon icon-arrow-top-right"></i></span>
+                      </div>
+                    </div>
+                    <div class="nex-work-card-body">
+                      <div class="nex-work-card-num">04</div>
+                      <div class="nex-work-card-title">Auction Marketplace Platform</div>
+                      <div class="nex-work-card-tags">
+                        <span>B2B Marketplace</span><span>Real-Time</span><span>Full Stack</span>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="nex-work-info">
-                  <div class="nex-work-num">04</div>
-                  <div class="nex-work-title">Auction Marketplace<br>Platform</div>
-                  <div class="nex-work-tags">
-                    <span>B2B Marketplace</span>
-                    <span>Real-Time</span>
-                    <span>Full Stack</span>
-                  </div>
-                </div>
-                <div class="nex-work-arrow">
-                  <i class="icon icon-arrow-top-right"></i>
-                </div>
-              </a>
 
-              <!-- Item 5 -->
-              <a href="parking.html" class="nex-work-row effectFade fadeUp">
-                <div class="nex-work-thumb">
-                  <img src="assets/images/section/parking-cover.png" alt="Parking Management System">
+                <!-- Slide 5 -->
+                <div class="swiper-slide">
+                  <a href="parking.html" class="nex-work-card">
+                    <div class="nex-work-card-img">
+                      <img src="assets/images/section/parking-cover.png" alt="Parking Management System">
+                      <div class="nex-work-card-overlay">
+                        <span class="nex-view-btn">View Project <i class="icon icon-arrow-top-right"></i></span>
+                      </div>
+                    </div>
+                    <div class="nex-work-card-body">
+                      <div class="nex-work-card-num">05</div>
+                      <div class="nex-work-card-title">Parking Management System</div>
+                      <div class="nex-work-card-tags">
+                        <span>Smart Mobility</span><span>React + NestJS</span><span>Dashboard</span>
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="nex-work-info">
-                  <div class="nex-work-num">05</div>
-                  <div class="nex-work-title">Parking Management<br>System</div>
-                  <div class="nex-work-tags">
-                    <span>Smart Mobility</span>
-                    <span>React + NestJS</span>
-                    <span>Dashboard</span>
-                  </div>
-                </div>
-                <div class="nex-work-arrow">
-                  <i class="icon icon-arrow-top-right"></i>
-                </div>
-              </a>
 
+              </div>
             </div>
-            <!-- /Project Row List -->
+            <!-- /Swiper carousel -->
 
           </div>
         </div>
         <!-- /section-featured-works -->
+
+        <script>
+        (function() {
+          var swiper = new Swiper('.nex-works-swiper', {
+            slidesPerView: 1.15,
+            spaceBetween: 20,
+            grabCursor: true,
+            breakpoints: {
+              576:  { slidesPerView: 1.5, spaceBetween: 24 },
+              768:  { slidesPerView: 2.2, spaceBetween: 28 },
+              1024: { slidesPerView: 2.8, spaceBetween: 32 },
+              1280: { slidesPerView: 3.2, spaceBetween: 32 }
+            }
+          });
+          document.getElementById('nexWorksPrev').addEventListener('click', function(){ swiper.slidePrev(); });
+          document.getElementById('nexWorksNext').addEventListener('click', function(){ swiper.slideNext(); });
+        })();
+        </script>
         <!-- section-process -->
         <div class="section-process flat-spacing">
           <div class="container">
